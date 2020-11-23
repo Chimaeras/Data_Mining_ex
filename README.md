@@ -65,7 +65,7 @@
 ![](http://latex.codecogs.com/svg.latex?\overline{x}=\frac{1}{n}\sum_{i=1}^{n}x_{i})
 
 #### 协方差公式：
-![](http://latex.codecogs.com/svg.latex?s^{2}=\frac{1}{n-1}\left [\sum_{i=1}^{n}x_{i}^{2}-\frac{1}{n}\left ( \sum_{i=1}^{n}x_{i} \right )^{2}  \right ])
+![](http://latex.codecogs.com/gif.latex?\\s^{2}=\frac{1}{n-1}\left [\sum_{i=1}^{n}x_{i}^{2}-\frac{1}{n}\left ( \sum_{i=1}^{n}x_{i} \right )^{2}  \right ])
 
 #### z-score规范化公式：
 ![](http://latex.codecogs.com/svg.latex?Z_{if}=\frac{X_{if}-m_{f}}{S_{f}})
