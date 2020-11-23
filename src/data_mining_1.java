@@ -24,7 +24,8 @@ import java.sql.Statement;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class data_mining_01 {
+
+public class data_mining_1 {
 
     /*************************************工具类函数*******************************************/
 
@@ -289,8 +290,10 @@ public class data_mining_01 {
 
     /************************************实验问题求解********************************************/
 
+    //实验1
+
     //Q1：学生中家乡在Beijing的所有课程的平均成绩
-    public static void Q1(Student[] list) {
+    public static void ex1_Q1(Student[] list) {
         //定义科目的总成绩
         int sum = 0;
         int count = 0;
@@ -321,7 +324,7 @@ public class data_mining_01 {
     }
 
     //Q2：学生中家乡在广州，课程1在80分以上，且课程9在9分以上的男同学的数量
-    public static void Q2(Student[] list) {
+    public static void ex1_Q2(Student[] list) {
         //统计人数
         int count = 0;
         for (int i = 0; i < 100; i++) {
@@ -352,7 +355,7 @@ public class data_mining_01 {
     }
 
     //Q3：比较广州和上海两地女生的平均体能测试成绩，哪个地区的更强些？
-    public static void Q3(Student[] list) {
+    public static void ex1_Q3(Student[] list) {
         //统计人数
         int gz_count = 0;
         int sh_count = 0;
@@ -389,7 +392,7 @@ public class data_mining_01 {
 
     //Q4: 学习成绩和体能测试成绩，两者的相关性是多少？
     //list为学生数据,index为所求相关性的科目（c1-c9）
-    public static void Q4(int[][] score, int index) {
+    public static void ex1_Q4(int[][] score, int index) {
         //统计当前列的平均值和标准差
         double ave_a = average(score, index);
         double std_a = standard(score, index);
@@ -416,6 +419,7 @@ public class data_mining_01 {
         }
         System.out.println("成绩" + (index + 1) + "和体育成绩的相关性为：" + correlation);
     }
+
 
     //实验2
 
@@ -510,6 +514,7 @@ public class data_mining_01 {
 
     }
 
+
     public static void main(String[] args) throws SQLException, IOException {
 
         //初始化对象数组
@@ -538,7 +543,7 @@ public class data_mining_01 {
         //Q2(list);
         //Q3(list);
         for (int i = 0; i < score[0].length - 1; i++) {
-            Q4(score, i);
+            ex1_Q4(score, i);
         }
 
 
