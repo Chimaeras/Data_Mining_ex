@@ -77,9 +77,7 @@
 * mean(A)代表A中元素的平均值
 * std是标准差，即对协方差的开平方。
 * 点乘的定义：
-```math
-A*B=\sum_{i}^{}a_{i}*b_{i}
-```
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E7%82%B9%E4%B9%98%E5%85%AC%E5%BC%8F.png)
 
 ---
 
