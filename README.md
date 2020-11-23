@@ -62,7 +62,7 @@
 ---
 
 #### 均值公式：
-https://latex.codecogs.com/gif.latex?\\\overline{x}=\frac{1}{n}\sum_{i=1}^{n}x_{i}
+![](http://latex.codecogs.com/svg.latex?\overline{x}=\frac{1}{n}\sum_{i=1}^{n}x_{i})
 ```math
 \overline{x}=\frac{1}{n}\sum_{i=1}^{n}x_{i}
 ```
