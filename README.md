@@ -71,11 +71,7 @@
   ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/z-score%E8%A7%84%E8%8C%83%E5%8C%96%E5%85%AC%E5%BC%8F.png)
 
 #### 相关性公式：
-![](http://latex.codecogs.com/svg.latex?a^{`}_{k}=\left ( a_{k}-mean(A)/std(A) \right ))
-
-![](http://latex.codecogs.com/svg.latex?b^{`}_{k}=\left ( b_{k}-mean(B)/std(B) \right ))
-
-![](http://latex.codecogs.com/svg.latex?correlation(A,B)=A^{`}*B^{`})
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E7%9B%B8%E5%85%B3%E6%80%A7%E5%85%AC%E5%BC%8F.png)
 
 * A=[a1,a2,a3,...,an],B=[b1,b2,b3,...,bn]
 * mean(A)代表A中元素的平均值
