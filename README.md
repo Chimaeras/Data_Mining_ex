@@ -63,27 +63,20 @@
 
 #### 均值公式：
 ![](http://latex.codecogs.com/svg.latex?\overline{x}=\frac{1}{n}\sum_{i=1}^{n}x_{i})
-```math
-\overline{x}=\frac{1}{n}\sum_{i=1}^{n}x_{i}
-```
+
 #### 协方差公式：
-```math
-s^{2}=\frac{1}{n-1}\left [\sum_{i=1}^{n}x_{i}^{2}-\frac{1}{n}\left ( \sum_{i=1}^{n}x_{i} \right )^{2}  \right ]
-```
+![](http://latex.codecogs.com/svg.latex?s^{2}=\frac{1}{n-1}\left [\sum_{i=1}^{n}x_{i}^{2}-\frac{1}{n}\left ( \sum_{i=1}^{n}x_{i} \right )^{2}  \right ])
+
 #### z-score规范化公式：
-```math
-Z_{if}=\frac{X_{if}-m_{f}}{S_{f}}
-```
+![](http://latex.codecogs.com/svg.latex?Z_{if}=\frac{X_{if}-m_{f}}{S_{f}})
+
 #### 相关性公式：
-```math
-a^{`}_{k}=\left ( a_{k}-mean(A)/std(A) \right )
-```
-```math
-b^{`}_{k}=\left ( b_{k}-mean(B)/std(B) \right )
-```
-```math
-correlation(A,B)=A^{`}*B^{`}
-```
+![](http://latex.codecogs.com/svg.latex?a^{`}_{k}=\left ( a_{k}-mean(A)/std(A) \right ))
+
+![](http://latex.codecogs.com/svg.latex?b^{`}_{k}=\left ( b_{k}-mean(B)/std(B) \right ))
+
+![](http://latex.codecogs.com/svg.latex?correlation(A,B)=A^{`}*B^{`})
+
 * A=[a1,a2,a3,...,an],B=[b1,b2,b3,...,bn]
 * mean(A)代表A中元素的平均值
 * std是标准差，即对协方差的开平方。
