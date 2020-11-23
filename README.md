@@ -65,7 +65,7 @@
 ![](http://latex.codecogs.com/svg.latex?\overline{x}=\frac{1}{n}\sum_{i=1}^{n}x_{i})
 
 #### 协方差公式：
-![](http://latex.codecogs.com/gif.latex?\\s^{2}=\frac{1}{n-1}\left [\sum_{i=1}^{n}x_{i}^{2}-\frac{1}{n}\left ( \sum_{i=1}^{n}x_{i} \right )^{2}  \right ])
+  ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E5%8D%8F%E6%96%B9%E5%B7%AE%E5%85%AC%E5%BC%8F.png)
 
 #### z-score规范化公式：
   ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/z-score%E8%A7%84%E8%8C%83%E5%8C%96%E5%85%AC%E5%BC%8F.png)
