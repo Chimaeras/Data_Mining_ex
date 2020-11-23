@@ -68,7 +68,7 @@
 ![](http://latex.codecogs.com/gif.latex?\\s^{2}=\frac{1}{n-1}\left [\sum_{i=1}^{n}x_{i}^{2}-\frac{1}{n}\left ( \sum_{i=1}^{n}x_{i} \right )^{2}  \right ])
 
 #### z-score规范化公式：
-![](http://latex.codecogs.com/svg.latex?Z_{if}=\frac{X_{if}-m_{f}}{S_{f}})
+  ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/z-score%E8%A7%84%E8%8C%83%E5%8C%96%E5%85%AC%E5%BC%8F.png)
 
 #### 相关性公式：
 ![](http://latex.codecogs.com/svg.latex?a^{`}_{k}=\left ( a_{k}-mean(A)/std(A) \right ))
