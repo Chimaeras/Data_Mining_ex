@@ -98,7 +98,7 @@
 
 #### 学生数据展示：
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/1-36.png)
-![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/37-75.png、)
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/37-75.png)
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/75-100.png)
 
 ---
