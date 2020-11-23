@@ -46,7 +46,7 @@
   | ... | ... | ... | ... | ... | ... | ... | ... | ... | ... |
 
 * Student.txt文件:
-##### ID Name City Gender Height C1 ... C10 Constitution
+##### ID Name City Gender Height C1 ... C9 Constitution
 ##### 202001 Sun Beijing male 180 87 ... 9 good
 ##### 202003 Tang Hanghai male 156 91 ... 10 general
 ##### ... ... ... .. ... .. ... ... ...
@@ -61,5 +61,39 @@
 
 ---
 
+#### 均值公式：
+```math
+\overline{x}=\frac{1}{n}\sum_{i=1}^{n}x_{i}
+```
+#### 协方差公式：
+```math
+s^{2}=\frac{1}{n-1}\left [\sum_{i=1}^{n}x_{i}^{2}-\frac{1}{n}\left ( \sum_{i=1}^{n}x_{i} \right )^{2}  \right ]
+```
+#### z-score规范化公式：
+```math
+Z_{if}=\frac{X_{if}-m_{f}}{S_{f}}
+```
+#### 相关性公式：
+```math
+a^{`}_{k}=\left ( a_{k}-mean(A)/std(A) \right )
+```
+```math
+b^{`}_{k}=\left ( b_{k}-mean(B)/std(B) \right )
+```
+```math
+correlation(A,B)=A^{`}*B^{`}
+```
+* A=[a1,a2,a3,...,an],B=[b1,b2,b3,...,bn]
+* mean(A)代表A中元素的平均值
+* std是标准差，即对协方差的开平方。
+* 点乘的定义：
+```math
+A*B=\sum_{i}^{}a_{i}*b_{i}
+```
 
+---
+
+#### 语言：Java、Markdown、sql
+#### 环境：IDEA、Mysql
+#### 调用函数库：（java画图库）
 
