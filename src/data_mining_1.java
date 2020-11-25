@@ -1,27 +1,25 @@
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
-import org.jfree.chart.*;
-import org.jfree.chart.axis.*;
-import org.jfree.chart.labels.ItemLabelAnchor;
-import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartUtilities;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.CategoryAxis3D;
+import org.jfree.chart.axis.NumberAxis3D;
+import org.jfree.chart.axis.NumberTickUnit;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.BarRenderer3D;
-import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.DefaultXYDataset;
-import org.jfree.ui.TextAnchor;
 
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
-import java.util.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -106,46 +104,50 @@ public class data_mining_1 {
     }
 
     //求均值函数
-    //第一个参数为传入的二维数组，第二个参数为二维数组中的第index列
-    public static double average(int[][] score, int index) {
+    //传入一个一维数组，返回均值
+    public static double average(int[] list) {
         //总和
         double sum = 0;
-        for (int[] ints : score) {
-            sum += ints[index];
+        for (int ints : list) {
+            sum += ints;
         }
         //求均值
-        return sum / score.length;
+        return sum / list.length;
     }
 
     //求样本标准差函数
-    public static double standard(int[][] score, int index) {
+    //传入一个数组，返回样本标准差
+    public static double standard(int[] list) {
         double sum = 0;
-        double ave = average(score, index);
-        for (int[] ints : score) {
+        double ave = average(list);
+        for (int ints : list) {
             //(x-average(X)的平方)
-            sum += Math.pow((ints[index] - ave), 2);
+            sum += Math.pow((ints - ave), 2);
         }
-        return Math.sqrt(sum / (score.length - 1));
+        return Math.sqrt(sum / (list.length - 1));
     }
 
     //求相关性函数
-    public static double corelation(int[][] score, int index_1, int index_2) {
+    //传入两个一维数组，返回相关系数
+    public static double corelation(int[] list_1, int[] list_2) {
         //统计当前列的平均值和标准差
-        double ave_1 = average(score, index_1);
-        double std_1 = standard(score, index_1);
+        double ave_1 = average(list_1);
+        double std_1 = standard(list_1);
 
         //第九列为学生的体育成绩
-        double ave_2 = average(score, index_2);
-        double std_2 = standard(score, index_2);
+        double ave_2 = average(list_2);
+        double std_2 = standard(list_2);
 
         //计算相关性
         //cov=累加((x-ace(x))*(y-ave(y)))/n-1
         double cov = 0;
-        for (int[] ints : score) {
-            cov += (ints[index_1] - ave_1) * (ints[index_2] - ave_2);
+        for (int i = 0; i < list_1.length; i++) {
+            for (int j = 0; j < list_2.length; j++) {
+                cov += (list_1[i] - ave_1) * (list_2[j] - ave_2);
+            }
         }
         //相关系数公式：cov(x,y)/(std(x)*std(y))
-        return cov / ((score.length - 1) * std_1 * std_2);
+        return cov / ((list_1.length - 1) * std_1 * std_2);
     }
 
     /*************************************数据初始化*******************************************/
@@ -414,8 +416,18 @@ public class data_mining_1 {
     //Q4: 学习成绩和体能测试成绩，两者的相关性是多少？
     //list为学生数据,index为所求相关性的科目（c1-c9）
     public static void ex1_Q4(int[][] score) {
+        //用临时数组将每个学生的课程分数按照行的方式存储
+        //temp=[10][100]
+        int[][] t = new int[score[0].length][score.length];
+        //遍历学生
+        for (int i = 0; i < score.length; i++) {
+            //遍历科目
+            for (int j = 0; j < score[0].length; j++) {
+                t[j][i] = score[i][j];
+            }
+        }
         for (int i = 0; i < score[0].length - 1; i++) {
-            System.out.println("成绩" + (i + 1) + "和体育成绩的相关性为" + corelation(score, i, 9));
+            System.out.println("成绩" + (i + 1) + "和体育成绩的相关性为" + corelation(t[i], t[9]));
         }
     }
 
@@ -566,13 +578,25 @@ public class data_mining_1 {
 
         //定义一个double的返回数组，长度大小和score一样
         double[][] res = new double[score.length][score[0].length];
+
+        //用临时数组将每个学生的课程分数按照行的方式存储
+        //temp=[10][100]
+        int[][] temp = new int[score[0].length][score.length];
+        //遍历学生
+        for (int i = 0; i < score.length; i++) {
+            //遍历科目
+            for (int j = 0; j < score[0].length; j++) {
+                temp[j][i] = score[i][j];
+            }
+        }
+
         //遍历每门科目
         for (int i = 0; i < score[0].length; i++) {
             //遍历每个学生
             for (int j = 0; j < score.length; j++) {
                 //z-score规范化：
                 //z=(x-x的均值)/总体标准差
-                res[j][i] = (score[j][i] - average(score, i)) / standard(score, i);
+                res[j][i] = (score[j][i] - average(temp[i])) / standard(temp[i]);
             }
         }
 
@@ -587,16 +611,26 @@ public class data_mining_1 {
 
     //Q4：计算协相关矩阵，并画出混淆矩阵。
     public static void ex2_Q4(int[][] score) {
-        double[][] cor_list = new double[score.length][score.length];
+        double[][] cor_list = new double[score.length][score[0].length];
+
+        //相当于score的转置矩阵 cow[10][100]
+        int[][] cow = new int[score[0].length][score.length];
         for (int i = 0; i < score.length; i++) {
             for (int j = 0; j < score[0].length; j++) {
-                cor_list[i][j] = corelation(score, i, j);
+                cow[j][i] = score[i][j];
+            }
+        }
+
+        for (int i = 0; i < score.length; i++) {
+            for (int j = 0; j < score[0].length; j++) {
+                cor_list[i][j] = corelation(cow[j], score[i]);
             }
         }
         for (int i = 0; i < score.length; i++) {
             for (int j = 0; j < score[0].length; j++) {
-                System.out.println(cor_list[i][j]);
+                System.out.print(cor_list[i][j] + "    ");
             }
+            System.out.println();
         }
     }
 
@@ -631,13 +665,13 @@ public class data_mining_1 {
 //        System.out.println();
 //        ex1_Q3(list);
 //        System.out.println();
-//        ex1_Q4(score);
+        ex1_Q4(score);
 
 
 //        ex2_Q1(score);
 //        ex2_Q2(score);
 //        ex2_Q3(score);
-        ex2_Q4(score);
+//        ex2_Q4(score);
 
     }
 }
