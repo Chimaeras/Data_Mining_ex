@@ -1,27 +1,27 @@
 import com.mysql.cj.x.protobuf.MysqlxDatatypes;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartFrame;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.StandardChartTheme;
-import org.jfree.chart.axis.NumberAxis;
-import org.jfree.chart.axis.ValueAxis;
+import org.jfree.chart.*;
+import org.jfree.chart.axis.*;
+import org.jfree.chart.labels.ItemLabelAnchor;
+import org.jfree.chart.labels.ItemLabelPosition;
+import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
+import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.category.BarRenderer3D;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.DefaultXYDataset;
+import org.jfree.ui.TextAnchor;
 
 import java.awt.*;
 import java.io.*;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Properties;
+import java.util.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 
 
@@ -117,14 +117,35 @@ public class data_mining_1 {
         return sum / score.length;
     }
 
-    //求总体标准差函数
+    //求样本标准差函数
     public static double standard(int[][] score, int index) {
         double sum = 0;
+        double ave = average(score, index);
         for (int[] ints : score) {
-            //x-average(X)的平方
-            sum += Math.pow((ints[index] - average(score, index)), 2);
+            //(x-average(X)的平方)
+            sum += Math.pow((ints[index] - ave), 2);
         }
-        return Math.sqrt(sum / score.length);
+        return Math.sqrt(sum / (score.length - 1));
+    }
+
+    //求相关性函数
+    public static double corelation(int[][] score, int index_1, int index_2) {
+        //统计当前列的平均值和标准差
+        double ave_1 = average(score, index_1);
+        double std_1 = standard(score, index_1);
+
+        //第九列为学生的体育成绩
+        double ave_2 = average(score, index_2);
+        double std_2 = standard(score, index_2);
+
+        //计算相关性
+        //cov=累加((x-ace(x))*(y-ave(y)))/n-1
+        double cov = 0;
+        for (int[] ints : score) {
+            cov += (ints[index_1] - ave_1) * (ints[index_2] - ave_2);
+        }
+        //相关系数公式：cov(x,y)/(std(x)*std(y))
+        return cov / ((score.length - 1) * std_1 * std_2);
     }
 
     /*************************************数据初始化*******************************************/
@@ -315,7 +336,7 @@ public class data_mining_1 {
                 sum += list[i].c7 * 10;
                 sum += list[i].c8 * 10;
                 sum += list[i].c9 * 10;
-                sum += list[i].c10 * 10;
+                sum += list[i].c10;
             }
         }
         //平均数=总分数/（课程数目*人数）
@@ -351,7 +372,7 @@ public class data_mining_1 {
 //                }
 //            }
 //        }
-        System.out.println("学生中家乡在广州，课程1在80分以上，且课程10在9分以上的男同学的数量：" + count);
+        System.out.println("学生中家乡在广州，课程1在80分以上，且课程9在9分以上的男同学的数量：" + count);
     }
 
     //Q3：比较广州和上海两地女生的平均体能测试成绩，哪个地区的更强些？
@@ -392,32 +413,10 @@ public class data_mining_1 {
 
     //Q4: 学习成绩和体能测试成绩，两者的相关性是多少？
     //list为学生数据,index为所求相关性的科目（c1-c9）
-    public static void ex1_Q4(int[][] score, int index) {
-        //统计当前列的平均值和标准差
-        double ave_a = average(score, index);
-        double std_a = standard(score, index);
-
-        //第九列为学生的体育成绩
-        double ave_b = average(score, 9);
-        double std_b = standard(score, 9);
-
-        //定义相应长度的数组
-        double[] A = new double[score.length];
-        double[] B = new double[score.length];
-
-        //计算ai'和bi'
-        for (int i = 0; i < score.length; i++) {
-            A[i] = (score[i][index] - ave_a) / std_a;
-            B[i] = (score[i][9] - ave_b) / std_b;
+    public static void ex1_Q4(int[][] score) {
+        for (int i = 0; i < score[0].length - 1; i++) {
+            System.out.println("成绩" + (i + 1) + "和体育成绩的相关性为" + corelation(score, i, 9));
         }
-
-        //计算相关性
-        double correlation = 0;
-        //点乘的累加
-        for (int i = 0; i < score.length; i++) {
-            correlation += A[i] * B[i];
-        }
-        System.out.println("成绩" + (index + 1) + "和体育成绩的相关性为：" + correlation);
     }
 
 
@@ -480,7 +479,84 @@ public class data_mining_1 {
     }
 
     //Q2：以5分为间隔，画出课程1的成绩直方图。
-    public static void ex2_Q2(int[][] score) {
+    public static void ex2_Q2(int[][] score) throws IOException {
+
+        //记录每个分数段的人数
+        int[] count_c1 = new int[20];
+        for (int[] ints : score) {
+            count_c1[(ints[0] - 1) / 5]++;
+        }
+
+        //柱状图数据对象
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        //添加数据
+        for (int i = 0; i < count_c1.length; i++) {
+            String string = "<=" + (i + 1) * 5;
+            dataset.addValue(count_c1[i], "", string);
+        }
+
+        //生成柱状图
+        JFreeChart chart = ChartFactory.createBarChart3D(
+                "科目1成绩-人数",
+                "分数",//X轴的标签
+                "人数",//Y轴的标签
+                dataset, //图标显示的数据集合
+                PlotOrientation.VERTICAL, //图像的显示形式（水平或者垂直）
+                false,//是否显示子标题
+                false,//是否生成提示的标签
+                false); //是否生成URL链接
+
+        /*
+         * 处理图形上的乱码
+         */
+
+        //处理主标题的乱码
+        chart.getTitle().setFont(new Font("黑体", Font.BOLD, 18));
+
+        //获取图表区域对象
+        CategoryPlot categoryPlot = (CategoryPlot) chart.getPlot();
+
+        //获取X轴的对象
+        CategoryAxis3D categoryAxis3D = (CategoryAxis3D) categoryPlot.getDomainAxis();
+
+        //获取Y轴的对象
+        NumberAxis3D numberAxis3D = (NumberAxis3D) categoryPlot.getRangeAxis();
+
+        //处理X轴上的乱码
+        categoryAxis3D.setTickLabelFont(new Font("黑体", Font.BOLD, 8));
+
+        //处理X轴外的乱码
+        categoryAxis3D.setLabelFont(new Font("黑体", Font.BOLD, 10));
+
+        //处理Y轴上的乱码
+        numberAxis3D.setTickLabelFont(new Font("黑体", Font.BOLD, 10));
+
+        //处理Y轴外的乱码
+        numberAxis3D.setLabelFont(new Font("黑体", Font.BOLD, 10));
+
+        //自定义Y轴上显示的刻度，间隔为1
+        numberAxis3D.setAutoTickUnitSelection(false);
+        NumberTickUnit unit = new NumberTickUnit(1);
+        numberAxis3D.setTickUnit(unit);
+
+        //获取绘图区域对象
+        BarRenderer3D barRenderer3D = (BarRenderer3D) categoryPlot.getRenderer();
+
+        //设置柱形图的宽度
+        barRenderer3D.setMaximumBarWidth(0.03);
+
+        //在图形上显示数字
+        barRenderer3D.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+        barRenderer3D.setBaseItemLabelsVisible(true);
+        barRenderer3D.setBaseItemLabelFont(new Font("宋体", Font.BOLD, 10));
+
+        //存储绘制的直方图
+        File file = new File("e:\\成绩直方图.png");
+        try {
+            ChartUtilities.saveChartAsJPEG(file, chart, 800, 600);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -510,8 +586,18 @@ public class data_mining_1 {
     }
 
     //Q4：计算协相关矩阵，并画出混淆矩阵。
-    public static void ex2_Q(int[][] score) {
-
+    public static void ex2_Q4(int[][] score) {
+        double[][] cor_list = new double[score.length][score.length];
+        for (int i = 0; i < score.length; i++) {
+            for (int j = 0; j < score[0].length; j++) {
+                cor_list[i][j] = corelation(score, i, j);
+            }
+        }
+        for (int i = 0; i < score.length; i++) {
+            for (int j = 0; j < score[0].length; j++) {
+                System.out.println(cor_list[i][j]);
+            }
+        }
     }
 
 
@@ -536,20 +622,22 @@ public class data_mining_1 {
         //展示学生数据
         //show_list(list);
         //展示成绩矩阵
-        //show_score(score);
+//        show_score(score);
 
         //实验问题求解
-        //Q1(list);
-        //Q2(list);
-        //Q3(list);
-        for (int i = 0; i < score[0].length - 1; i++) {
-            ex1_Q4(score, i);
-        }
+//        ex1_Q1(list);
+//        System.out.println();
+//        ex1_Q2(list);
+//        System.out.println();
+//        ex1_Q3(list);
+//        System.out.println();
+//        ex1_Q4(score);
 
 
-        //ex2_Q1(score);
-        //ex2_Q3(score);
-
+//        ex2_Q1(score);
+//        ex2_Q2(score);
+//        ex2_Q3(score);
+        ex2_Q4(score);
 
     }
 }
