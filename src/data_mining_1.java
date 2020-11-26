@@ -142,9 +142,7 @@ public class data_mining_1 {
         //cov=累加((x-ace(x))*(y-ave(y)))/n-1
         double cov = 0;
         for (int i = 0; i < list_1.length; i++) {
-            for (int j = 0; j < list_2.length; j++) {
-                cov += (list_1[i] - ave_1) * (list_2[j] - ave_2);
-            }
+            cov += (list_1[i] - ave_1) * (list_2[i] - ave_2);
         }
         //相关系数公式：cov(x,y)/(std(x)*std(y))
         return cov / ((list_1.length - 1) * std_1 * std_2);
@@ -417,6 +415,8 @@ public class data_mining_1 {
     //list为学生数据,index为所求相关性的科目（c1-c9）
     public static void ex1_Q4(int[][] score) {
         //用临时数组将每个学生的课程分数按照行的方式存储
+        //相当于score的翻转
+        //第一行为科目一的成绩，以此类推
         //temp=[10][100]
         int[][] t = new int[score[0].length][score.length];
         //遍历学生
@@ -430,7 +430,6 @@ public class data_mining_1 {
             System.out.println("成绩" + (i + 1) + "和体育成绩的相关性为" + corelation(t[i], t[9]));
         }
     }
-
 
     //实验2
 
@@ -611,23 +610,21 @@ public class data_mining_1 {
 
     //Q4：计算协相关矩阵，并画出混淆矩阵。
     public static void ex2_Q4(int[][] score) {
-        double[][] cor_list = new double[score.length][score[0].length];
+        //定义相关矩阵
+        //cor_list[100][100]
+        double[][] cor_list = new double[score.length][score.length];
 
-        //相当于score的转置矩阵 cow[10][100]
-        int[][] cow = new int[score[0].length][score.length];
+        //计算相关矩阵
+        //相关矩阵的[i][j]=分数矩阵第i列和第j列的相关系数
         for (int i = 0; i < score.length; i++) {
-            for (int j = 0; j < score[0].length; j++) {
-                cow[j][i] = score[i][j];
+            for (int j = 0; j < score.length; j++) {
+                cor_list[i][j] = corelation(score[i], score[j]);
             }
         }
 
+        //展示相关矩阵
         for (int i = 0; i < score.length; i++) {
-            for (int j = 0; j < score[0].length; j++) {
-                cor_list[i][j] = corelation(cow[j], score[i]);
-            }
-        }
-        for (int i = 0; i < score.length; i++) {
-            for (int j = 0; j < score[0].length; j++) {
+            for (int j = 0; j < score.length; j++) {
                 System.out.print(cor_list[i][j] + "    ");
             }
             System.out.println();
@@ -665,13 +662,13 @@ public class data_mining_1 {
 //        System.out.println();
 //        ex1_Q3(list);
 //        System.out.println();
-        ex1_Q4(score);
+//        ex1_Q4(score);
 
 
 //        ex2_Q1(score);
 //        ex2_Q2(score);
 //        ex2_Q3(score);
-//        ex2_Q4(score);
+        ex2_Q4(score);
 
     }
 }
