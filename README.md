@@ -122,5 +122,5 @@ TXT | male/female | 单位为m | (差/一般/良好/优秀)
 * 问题3：比较广州和上海两地女生的平均体能测试成绩，哪个地区的更强些？
 * 问题4：学习成绩和体能测试成绩，两者的相关性是多少？（九门课的成绩分别与体能成绩计算相关性）
 
-![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E5%AE%9E%E9%AA%8C1%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE.png)
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E5%AE%9E%E9%AA%8C%E4%B8%80%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE.png)
 
