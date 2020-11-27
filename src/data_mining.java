@@ -15,17 +15,24 @@ import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.DefaultXYDataset;
 
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.sql.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class data_mining_1 {
+public class data_mining {
 
     /*************************************工具类函数*******************************************/
+
+    ///cmp比较函数
+    static Comparator<Integer> cmp = new Comparator<Integer>() {
+        public int compare(Integer i1, Integer i2) {
+            return i2 - i1;
+        }
+    };
 
     //将txt中的身高转换为cm
     public static int change_height(String a) {
@@ -147,6 +154,58 @@ public class data_mining_1 {
         //相关系数公式：cov(x,y)/(std(x)*std(y))
         return cov / ((list_1.length - 1) * std_1 * std_2);
     }
+
+    //转换关系矩阵
+    public static String[][] change_cor(double[][] list) {
+
+        //混淆矩阵展示
+        String[][] res = new String[list.length][list.length];
+
+        for (int i = 0; i < list.length; i++) {
+            for (int j = 0; j < list.length; j++) {
+                if (list[i][j] >= 0.5) {
+                    res[i][j] = "强正相关";
+                }
+                if (list[i][j] < 0.5 && list[i][j] >= 0) {
+                    res[i][j] = "弱正相关";
+                }
+                if (list[i][j] < 0 && list[i][j] >= -0.5) {
+                    res[i][j] = "弱负相关";
+                }
+                if (list[i][j] <= -0.5) {
+                    res[i][j] = "强负相关";
+                }
+            }
+        }
+        return res;
+    }
+
+    //可视化混淆矩阵
+    public static void drow_matrix(double[][] list) {
+
+    }
+
+    //写数据到txt文件中
+    //参数1为传入数组，参数二为文件名
+    //默认写到项目地址下
+    public static void wirte_to_txt(int[][] list, String string) {
+        //m为行数，n为列数
+        int m = list.length;
+        int n = list[0].length;
+        try {
+            //写对象
+            FileWriter file = new FileWriter(string);
+            for (int[] ints : list) {
+                for (int j = 0; j < n; j++)
+                    file.write(ints[j] + "\t");
+                file.write("\n");
+            }
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /*************************************数据初始化*******************************************/
 
@@ -301,9 +360,9 @@ public class data_mining_1 {
 
     //展示成绩矩阵函数
     public static void show_score(int[][] score) {
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 10; j++) {
-                System.out.print(score[i][j] + " ");
+        for (int[] ints : score) {
+            for (int j = 0; j < score[0].length; j++) {
+                System.out.print(ints[j] + " ");
             }
             System.out.println();
         }
@@ -631,6 +690,68 @@ public class data_mining_1 {
         }
     }
 
+    public static void ex2_Q5(int[][] score, int count) throws IOException {
+        //定义相关矩阵
+        //cor_list[100][100]
+        double[][] cor_list = new double[score.length][score.length];
+
+        //计算相关矩阵
+        //相关矩阵的[i][j]=分数矩阵第i列和第j列的相关系数
+        for (int i = 0; i < score.length; i++) {
+            for (int j = 0; j < score.length; j++) {
+                cor_list[i][j] = corelation(score[i], score[j]);
+            }
+        }
+
+        //temp为关系矩阵的副本
+        //这里采取深拷贝，这样在改变temp的时候不会改变原关系数组
+        double[][] temp = new double[score.length][score.length];
+        //深拷贝
+        for (int i = 0; i < score.length; i++) {
+            temp[i] = Arrays.copyOf(cor_list[i], score.length);
+        }
+        //find[100][3]
+        double[][] find = new double[score.length][count];
+
+        //对关系矩阵中的每一行进行排序
+        for (double[] doubles : temp) {
+            Arrays.sort(doubles);
+        }
+
+        //找到每行中最大的三个数，并放入find数组中
+        for (int i = 0; i < temp.length; i++) {
+            for (int j = 0; j < count; j++) {
+                find[i][j] = temp[i][temp.length - 2 - j];
+            }
+        }
+
+        //结果数组，存储找到的学生的下标
+        int[][] res = new int[score.length][count];
+
+        //寻找对应下标
+        for (int i = 0; i < score.length; i++) {
+            for (int j = 0; j < score.length; j++) {
+                for (int k = 0; k < count; k++) {
+                    //find中存储的是前count个相关系数
+                    //与原数组进行对比
+                    //将对应下标放入res数组中
+                    if (find[i][k] == cor_list[i][j]) {
+                        res[i][k] = j;
+                    }
+                }
+            }
+        }
+
+        //展示找到的矩阵
+        for (int[] ints : res) {
+            for (int j = 0; j < find[0].length; j++) {
+                System.out.print(ints[j] + " ");
+            }
+            System.out.println();
+        }
+
+        wirte_to_txt(res, "学生样本.txt");
+    }
 
     public static void main(String[] args) throws SQLException, IOException {
 
@@ -668,7 +789,8 @@ public class data_mining_1 {
 //        ex2_Q1(score);
 //        ex2_Q2(score);
 //        ex2_Q3(score);
-        ex2_Q4(score);
+//        ex2_Q4(score);
+        ex2_Q5(score, 3);
 
     }
 }
