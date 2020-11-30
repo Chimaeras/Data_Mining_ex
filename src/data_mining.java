@@ -13,6 +13,9 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.BarRenderer3D;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.xy.DefaultXYDataset;
+import org.python.core.*;
+import org.python.util.PythonInterpreter;
+
 
 import java.awt.*;
 import java.io.*;
@@ -194,7 +197,6 @@ public class data_mining {
             e.printStackTrace();
         }
     }
-
 
     /*************************************数据初始化*******************************************/
 
@@ -743,16 +745,8 @@ public class data_mining {
             }
         }
 
-        //展示找到的矩阵
-        for (int[] ints : res) {
-            for (int j = 0; j < find[0].length; j++) {
-                System.out.print(ints[j] + " ");
-            }
-            System.out.println();
-        }
-
         //将数据保存到txt文件中
-        wirte_to_txt_double(cor_list,"学生相关矩阵.txt");
+        wirte_to_txt_double(cor_list, "学生相关矩阵.txt");
         wirte_to_txt_int(res, "学生样本.txt");
     }
 
