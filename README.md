@@ -148,4 +148,9 @@ TXT | male/female | 单位为m | (差/一般/良好/优秀)
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E5%BD%92%E4%B8%80%E5%8C%96%E7%9F%A9%E9%98%B5_3.PNG)
 
 * 4.	计算出100x100的相关矩阵，并可视化出混淆矩阵。（为避免歧义，这里“协相关矩阵”进一步细化更正为100x100的相关矩阵，100为学生样本数目，视实际情况而定）
+#### 计算得出相关矩阵，并写到txt文件中，文件名为：学生相关矩阵.txt。详情请见Chimaeras/Data_Mining_ex/学生相关矩阵.txt。
+#### 可视化混淆矩阵：
+
+
 * 5.	根据相关矩阵，找到距离每个样本最近的三个样本，得到100x3的矩阵（每一行为对应三个样本的ID）输出到txt文件中，以\t,\n间隔。
+#### 根据相关矩阵，将样本ID写到txt文件中，文件名为：学生样本.txt。详情请见Chimaeras/Data_Mining_ex/学生样本.txt。
