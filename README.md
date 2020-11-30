@@ -109,7 +109,16 @@ TXT | male/female | 单位为m | (差/一般/良好/优秀)
 
 ---
 
-#### 学生数据展示：
+
+#### （导入前）学生数据对比（txt VS 数据库）：
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%95%B0%E6%8D%AE%E5%AF%B9%E6%AF%941-40.png)
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%95%B0%E6%8D%AE%E5%AF%B9%E6%AF%9441-79.png)
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%95%B0%E6%8D%AE%E5%AF%B9%E6%AF%9480-100.png)
+
+
+---
+
+#### （导入后）学生数据展示：
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/1-36.png)
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/37-75.png)
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/75-100.png)
