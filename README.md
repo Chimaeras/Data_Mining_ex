@@ -137,6 +137,10 @@ TXT | male/female | 单位为m | (差/一般/良好/优秀)
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%95%A3%E7%82%B9%E5%9B%BE_%E9%87%8F%E5%8C%96_2.png)
 
 * 2.	以5分为间隔，画出课程1的成绩直方图。
+#### 打印得到的成绩直方图存储地址为："e:\\成绩直方图.png"
+#### 展示：
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%88%90%E7%BB%A91%E7%9B%B4%E6%96%B9%E5%9B%BE.png)
+
 * 3.	对每门成绩进行z-score归一化，得到归一化的数据矩阵。
 * 4.	计算出100x100的相关矩阵，并可视化出混淆矩阵。（为避免歧义，这里“协相关矩阵”进一步细化更正为100x100的相关矩阵，100为学生样本数目，视实际情况而定）
 * 5.	根据相关矩阵，找到距离每个样本最近的三个样本，得到100x3的矩阵（每一行为对应三个样本的ID）输出到txt文件中，以\t,\n间隔。
