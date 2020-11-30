@@ -158,6 +158,7 @@ TXT | male/female | 单位为m | (差/一般/良好/优秀)
 
 * 4.	计算出100x100的相关矩阵，并可视化出混淆矩阵。（为避免歧义，这里“协相关矩阵”进一步细化更正为100x100的相关矩阵，100为学生样本数目，视实际情况而定）
 #### 计算得出相关矩阵，并写到txt文件中，文件名为：学生相关矩阵.txt。详情请见Chimaeras/Data_Mining_ex/学生相关矩阵.txt。
+#### （Tips）由于java没有比较好的绘制图形库，所以这里采用python中的plt库完成对混淆矩阵的可视化。详细代码请见Chimaeras/Data_Mining_ex/src/draw.py。
 #### 可视化混淆矩阵：
 
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E5%8F%AF%E8%A7%86%E5%8C%96%E6%B7%B7%E6%B7%86%E7%9F%A9%E9%98%B5.png
