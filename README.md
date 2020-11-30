@@ -124,3 +124,19 @@ TXT | male/female | 单位为m | (差/一般/良好/优秀)
 
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E5%AE%9E%E9%AA%8C%E4%B8%80%E8%BF%90%E8%A1%8C%E6%88%AA%E5%9B%BE.png)
 
+---
+
+## 实验二《数据统计和可视化》
+### 题目:基于实验一中清洗后的数据练习统计和视化操作，100个同学（样本），每个同学有11门课程的成绩（10维的向量）；那么构成了一个100x10的数据矩阵。以你擅长的语言C/C++/Java/Python/Matlab，编程计算：
+* 1.	请以课程1成绩为x轴，体能成绩为y轴，画出散点图。
+#### 这里存在两种体育成绩的量化方法，会导致散点图形状发生变化
+##### 方法1：对于不同评级的体育成绩，给予对应的确定分数，例如（excellent=95，good=85，general=75，bad=60），此时散点图为：
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%95%A3%E7%82%B9%E5%9B%BE_%E9%87%8F%E5%8C%96_1.png)
+
+##### 方法2：对于不同评级的体育成绩，给予对应范围内的随机分数，例如（excellent=90-100，good=80-90，general=60-80，bad=0-60），此时散点图为：
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%95%A3%E7%82%B9%E5%9B%BE_%E9%87%8F%E5%8C%96_2.png)
+
+* 2.	以5分为间隔，画出课程1的成绩直方图。
+* 3.	对每门成绩进行z-score归一化，得到归一化的数据矩阵。
+* 4.	计算出100x100的相关矩阵，并可视化出混淆矩阵。（为避免歧义，这里“协相关矩阵”进一步细化更正为100x100的相关矩阵，100为学生样本数目，视实际情况而定）
+* 5.	根据相关矩阵，找到距离每个样本最近的三个样本，得到100x3的矩阵（每一行为对应三个样本的ID）输出到txt文件中，以\t,\n间隔。
