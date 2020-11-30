@@ -27,13 +27,6 @@ public class data_mining {
 
     /*************************************工具类函数*******************************************/
 
-    ///cmp比较函数
-    static Comparator<Integer> cmp = new Comparator<Integer>() {
-        public int compare(Integer i1, Integer i2) {
-            return i2 - i1;
-        }
-    };
-
     //将txt中的身高转换为cm
     public static int change_height(String a) {
         //将string转换成float
@@ -137,11 +130,12 @@ public class data_mining {
     //求相关性函数
     //传入两个一维数组，返回相关系数
     public static double corelation(int[] list_1, int[] list_2) {
-        //统计当前列的平均值和标准差
+        //统计当前列1的平均值和标准差
         double ave_1 = average(list_1);
         double std_1 = standard(list_1);
 
-        //第九列为学生的体育成绩
+        //统计当前列2的平均值和标准差
+        //第9列为学生的体育成绩,问题4中用到
         double ave_2 = average(list_2);
         double std_2 = standard(list_2);
 
@@ -155,40 +149,15 @@ public class data_mining {
         return cov / ((list_1.length - 1) * std_1 * std_2);
     }
 
-    //转换关系矩阵
-    public static String[][] change_cor(double[][] list) {
-
-        //混淆矩阵展示
-        String[][] res = new String[list.length][list.length];
-
-        for (int i = 0; i < list.length; i++) {
-            for (int j = 0; j < list.length; j++) {
-                if (list[i][j] >= 0.5) {
-                    res[i][j] = "强正相关";
-                }
-                if (list[i][j] < 0.5 && list[i][j] >= 0) {
-                    res[i][j] = "弱正相关";
-                }
-                if (list[i][j] < 0 && list[i][j] >= -0.5) {
-                    res[i][j] = "弱负相关";
-                }
-                if (list[i][j] <= -0.5) {
-                    res[i][j] = "强负相关";
-                }
-            }
-        }
-        return res;
-    }
-
     //可视化混淆矩阵
     public static void drow_matrix(double[][] list) {
 
     }
 
-    //写数据到txt文件中
+    //写数据到txt文件中(int类型)
     //参数1为传入数组，参数二为文件名
     //默认写到项目地址下
-    public static void wirte_to_txt(int[][] list, String string) {
+    public static void wirte_to_txt_int(int[][] list, String string) {
         //m为行数，n为列数
         int m = list.length;
         int n = list[0].length;
@@ -198,6 +167,26 @@ public class data_mining {
             for (int[] ints : list) {
                 for (int j = 0; j < n; j++)
                     file.write(ints[j] + "\t");
+                file.write("\n");
+            }
+            file.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //写数据到txt文件中(double类型)
+    //同上
+    public static void wirte_to_txt_double(double[][] list, String string) {
+        //m为行数，n为列数
+        int m = list.length;
+        int n = list[0].length;
+        try {
+            //写对象
+            FileWriter file = new FileWriter(string);
+            for (double[] doubles : list) {
+                for (int j = 0; j < n; j++)
+                    file.write(doubles[j] + "\t");
                 file.write("\n");
             }
             file.close();
@@ -247,8 +236,12 @@ public class data_mining {
             //初始化学生对象
             list[i] = new Student();
 
+            //名字作为判断是否存在的依据
             if (list[i].name == null) {
                 //进行赋值
+                //从数据库中读取的ID为后两位，需要加上前缀
+                //如果getString的列为空，则会返回null字符
+                //后续对txt源数据进行读取的时候，会完成覆盖
                 list[i].ID = res.getInt("id") + 202000;
                 list[i].name = res.getString("name");
                 list[i].city = res.getString("city");
@@ -278,7 +271,7 @@ public class data_mining {
     //读取学生数据.txt文件，并写入学生数组
     public static void read(Student[] list) throws IOException {
         //读取类对象br
-        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\99259\\Desktop\\学生数据.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("C:\\Users\\99259\\Desktop\\学生数据-有缺失版本.txt"));
         //当前行对象
         String line = br.readLine();
         while (line != null) {
@@ -308,6 +301,8 @@ public class data_mining {
             list[j].c7 = Integer.parseInt(numbers[11]);
             list[j].c8 = Integer.parseInt(numbers[12]);
             list[j].c9 = Integer.parseInt(numbers[13]);
+            //第14列存储的是学生的体育成绩评价，未转换成数值
+            //第15列存储的是转换后的数值
             if (numbers.length == 16) {
                 list[j].constitution = change_constitution(numbers[15]);
                 list[j].c10 = quanfity_constitution_1(list[j].constitution);
@@ -321,7 +316,8 @@ public class data_mining {
 
     //初始化分数矩阵
     public static void initialize(Student[] list, int[][] score) {
-        for (int i = 0; i < 100; i++) {
+        //读取写入后的学生成绩，形成完整的分数矩阵
+        for (int i = 0; i < score.length; i++) {
             score[i][0] = list[i].c1;
             score[i][1] = list[i].c2;
             score[i][2] = list[i].c3;
@@ -339,7 +335,7 @@ public class data_mining {
 
     //展示学生数组函数
     public static void show_list(Student[] list) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < list.length; i++) {
             System.out.print("ID: " + list[i].ID + " ");
             System.out.print("name: " + list[i].name + " ");
             System.out.print("city: " + list[i].city + " ");
@@ -379,23 +375,23 @@ public class data_mining {
         int count = 0;
 
         //遍历查找city为北京的同学
-        for (int i = 0; i < 100; i++) {
-            if (list[i].city.equals("Beijing")) {
+        for (Student student : list) {
+            if (student.city.equals("Beijing")) {
                 //统计人数+1
                 count++;
                 //累加每门科目的成绩
                 //c1-c5是百分制
-                sum += list[i].c1;
-                sum += list[i].c2;
-                sum += list[i].c3;
-                sum += list[i].c4;
-                sum += list[i].c5;
+                sum += student.c1;
+                sum += student.c2;
+                sum += student.c3;
+                sum += student.c4;
+                sum += student.c5;
                 //c6-c10是十分制，将其转换成百分制
-                sum += list[i].c6 * 10;
-                sum += list[i].c7 * 10;
-                sum += list[i].c8 * 10;
-                sum += list[i].c9 * 10;
-                sum += list[i].c10;
+                sum += student.c6 * 10;
+                sum += student.c7 * 10;
+                sum += student.c8 * 10;
+                sum += student.c9 * 10;
+                sum += student.c10;
             }
         }
         //平均数=总分数/（课程数目*人数）
@@ -407,9 +403,9 @@ public class data_mining {
     public static void ex1_Q2(Student[] list) {
         //统计人数
         int count = 0;
-        for (int i = 0; i < 100; i++) {
+        for (Student student : list) {
             //同时满足四个条件
-            if (list[i].city.equals("Guangzhou") && list[i].c1 >= 80 && list[i].c9 >= 9 && list[i].gender.equals("boy")) {
+            if (student.city.equals("Guangzhou") && student.c1 >= 80 && student.c9 >= 9 && student.gender.equals("boy")) {
                 count++;
             }
         }
@@ -506,7 +502,7 @@ public class data_mining {
             //第一门科目的成绩
             data[0][i] = score[i][0];
             //体育成绩
-            data[1][i] = score[i][10];
+            data[1][i] = score[i][9];
         }
 
         //addSeries接受三个参数（名称，数据数组，选项数组（可省略））
@@ -554,6 +550,7 @@ public class data_mining {
         //记录每个分数段的人数
         int[] count_c1 = new int[20];
         for (int[] ints : score) {
+            //成绩-1再/5就是该同学所处在的区间
             count_c1[(ints[0] - 1) / 5]++;
         }
 
@@ -561,6 +558,7 @@ public class data_mining {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         //添加数据
         for (int i = 0; i < count_c1.length; i++) {
+            //区间范围标识
             String string = "<=" + (i + 1) * 5;
             dataset.addValue(count_c1[i], "", string);
         }
@@ -621,6 +619,7 @@ public class data_mining {
         barRenderer3D.setBaseItemLabelFont(new Font("宋体", Font.BOLD, 10));
 
         //存储绘制的直方图
+        //存储地址
         File file = new File("e:\\成绩直方图.png");
         try {
             ChartUtilities.saveChartAsJPEG(file, chart, 800, 600);
@@ -690,6 +689,7 @@ public class data_mining {
         }
     }
 
+    //Q5：根据相关矩阵，找到距离每个样本最近的三个样本，得到100x3的矩阵（每一行为对应三个样本的ID）输出到txt文件中，以\t,\n间隔。
     public static void ex2_Q5(int[][] score, int count) throws IOException {
         //定义相关矩阵
         //cor_list[100][100]
@@ -704,7 +704,7 @@ public class data_mining {
         }
 
         //temp为关系矩阵的副本
-        //这里采取深拷贝，这样在改变temp的时候不会改变原关系数组
+        //这里采取深拷贝，这样在改变temp的时候不会改变原数组
         double[][] temp = new double[score.length][score.length];
         //深拷贝
         for (int i = 0; i < score.length; i++) {
@@ -721,6 +721,7 @@ public class data_mining {
         //找到每行中最大的三个数，并放入find数组中
         for (int i = 0; i < temp.length; i++) {
             for (int j = 0; j < count; j++) {
+                //后边倒数的三个数
                 find[i][j] = temp[i][temp.length - 2 - j];
             }
         }
@@ -750,7 +751,9 @@ public class data_mining {
             System.out.println();
         }
 
-        wirte_to_txt(res, "学生样本.txt");
+        //将数据保存到txt文件中
+        wirte_to_txt_double(cor_list,"学生相关矩阵.txt");
+        wirte_to_txt_int(res, "学生样本.txt");
     }
 
     public static void main(String[] args) throws SQLException, IOException {
@@ -774,7 +777,7 @@ public class data_mining {
         //展示学生数据
         //show_list(list);
         //展示成绩矩阵
-//        show_score(score);
+        //show_score(score);
 
         //实验问题求解
 //        ex1_Q1(list);
