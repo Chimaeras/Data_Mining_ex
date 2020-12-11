@@ -198,10 +198,10 @@ TXT | male/female | 单位为m | (差/一般/良好/优秀)
 #### 算法代码：
 * 详情请见Chimaeras/Data_Mining_ex/src/k-means.cpp文件
 * 通过调整count改变聚类中心的个数
-* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/count.png)
+* ![Image text]()
 
 * 通过改变path改变文件地址
-* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/filepath.png)
+* ![Image text]()
 
 #### 结果展示：
 * (聚类：2类)
