@@ -227,11 +227,11 @@ x | y
 
 #### 算法代码：
 * 详情请见Chimaeras/Data_Mining_ex/src/k-means.cpp文件
-* 通过调整count改变聚类中心的个数
-* ![Image text]()
+* 通过调整c改变聚类中心的个数
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E8%81%9A%E7%B1%BB%E4%B8%AA%E6%95%B0.png)
 
 * 通过改变path改变文件地址
-* ![Image text]()
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%96%87%E4%BB%B6%E5%9C%B0%E5%9D%80.png)
 
 #### 结果展示：
 * (聚类：2类)
