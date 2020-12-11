@@ -4,133 +4,184 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <cmath>
-#include <fstream>  //ÎÄ¼şÁ÷¿âº¯Êı
+#include <fstream>  //æ–‡ä»¶æµåº“å‡½æ•°
 
 using namespace std;
 
-//È«¾Ö¶¨ÒåÊı¾İµØ¹æÄ£´óĞ¡
-//mÎªĞĞ£¬nÎªÁĞ
+//mä¸ºè¡Œï¼Œnä¸ºåˆ—
 static int m = 100;
 static int n = 10;
+//cä¸ºä¸­å¿ƒçš„æ•°é‡
+static int c = 4;
+
+
+//è®¡ç®—ä¸¤ç‚¹ä¹‹é—´çš„è·ç¦»
+double distance(double a[] ,double b[]) {
+    double sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += pow((a[i] - b[i]), 2);
+    }
+    return pow(sum, 0.5);
+}
 
 int main() {
 
-    //¶¨ÒåÊı¾İ¶şÎ¬Êı×é£¬´æ´¢ÎÄ¼şÖĞµÄÊı¾İ
-    //¹æÄ£Îª[m][n]
-    vector<vector<double>> array(m);
-    for (int i = 0; i < m; i++)
-    {
-        array[i].resize(n);
-    }
-    //¶¨ÒåÀà±ğ¶şÎ¬Êı×é£¬´æ´¢Ã¿¸öÊı¾İµÄÀà±ğ
-    vector<vector<double>> category(m);
-    for (int i = 0; i < m; i++)
-    {
-        category[i].resize(n);
+    double** data = new double* [m];
+    for (int i = 0; i < m; i++) {
+        data[i] = new double[n];
     }
 
-    //Êı¾İÎÄ¼şµØÖ·
+    //æ•°æ®æ–‡ä»¶åœ°å€
     string path = "D:\\Java_project\\Data_Mining_ex_1\\z-score.txt";
-    //´ò¿ªÎÄ¼ş
+    //æ‰“å¼€æ–‡ä»¶
     ifstream in(path);
-    //¶ÁtxtÊı¾İ
+    //è¯»txtæ•°æ®
     for (int i = 0; i < m; i++) {
         for (int j = 0; j < n; j++) {
-            in >> array[i][j];
+            in >> data[i][j];
         }
     }
-    //¹Ø±ÕÎÄ¼ş
+    //å…³é—­æ–‡ä»¶
     in.close();
-  
-    //countÎª¾ÛÀàÖĞĞÄ¸öÊı
-    int count = 3;
-    srand(int(time(0)));
-    //ÖĞĞÄÊı×é£¬´æ´¢³õÊ¼Éú³ÉµÄ¾ÛÀàÖĞĞÄ
-    vector<double> point(count);
-    //Ëæ»ú´ÓÔ­Êı×éÖĞÌôÑ¡count¸öµã³ÉÎª¾ÛÀàÖĞĞÄ
-    for (int i = 0; i < count; i++) {
-        int a = rand() % m;
-        int b = rand() % n;
-        point[i] = array[a][b];
-    }
 
-    //Ëæ»úÎª³õÊ¼Êı×é·ÖÅäÀà±ğ
-    for (int i = 0; i < m; i++) {
+    double test[20][3] =
+    {   {3.45,7.08,4.26} ,
+        {1.76,7.24,5.14} ,
+        {4.29,9.55,1.25} ,
+        {3.35,6.65,1.69} ,
+        {3.17,6.41,4.36} ,
+        {3.68,5.99,9.35} ,
+        {2.11,4.08,3.84} ,
+        {2.58,7.10,4.32} ,
+        {3.45,7.88,7.25} ,
+        {6.17,5.40,1.46} ,
+        {4.20,6.46,1.78} ,
+        {5.87,3.87,6.45} ,
+        {5.47,2.21,8.61} ,
+        {5.97,3.62,1.47} ,
+        {6.24,3.06,5.23} ,
+        {6.89,2.41,8.47} ,
+        {5.38,2.32,9.34} ,
+        {5.13,2.73,6.41} ,
+        {7.26,4.19,2.36} ,
+        {6.32,3.62,4.25} ,
+    };
+
+    //å®šä¹‰ç±»åˆ«äºŒç»´æ•°ç»„ï¼Œå­˜å‚¨æ¯ä¸ªæ•°æ®çš„ç±»åˆ«
+    vector<double> category(m);
+
+    //countä¸ºèšç±»ä¸­å¿ƒä¸ªæ•°
+    srand(int(time(0)));
+    //ä¸­å¿ƒæ•°ç»„ï¼Œå­˜å‚¨åˆå§‹ç”Ÿæˆçš„èšç±»ä¸­å¿ƒ
+    double** point = new double* [c];
+    for (int i = 0; i < c; i++) {
+        point[i] = new double[n];
+    }
+    //éšæœºä»åŸæ•°ç»„ä¸­æŒ‘é€‰countä¸ªç‚¹æˆä¸ºèšç±»ä¸­å¿ƒ
+    for (int i = 0; i < c; i++) {
+        int a = rand() % m;
         for (int j = 0; j < n; j++) {
-            category[i][j] = rand() % count;
+            point[i][j] = data[a][j];
         }
     }
 
-    //same´æ´¢µü´ú¹ı³ÌÖĞ¾ÛÀàÖĞĞÄ±ä»¯µÄ´ÎÊı
+    //éšæœºä¸ºåˆå§‹æ•°ç»„åˆ†é…ç±»åˆ«
+    for (int i = 0; i < m; i++) {
+        category[i] = rand() % c;
+    }
+
+    //sameå­˜å‚¨è¿­ä»£è¿‡ç¨‹ä¸­èšç±»ä¸­å¿ƒå˜åŒ–çš„æ¬¡æ•°
     int same = 0;
-    //time´æ´¢µü´úµÄ´ÎÊı
+    //timeå­˜å‚¨è¿­ä»£çš„æ¬¡æ•°
     int time = 0;
 
-    //ÖÕÖ¹Ìõ¼şÎª¾ÛÀàÖĞĞÄ²»·¢Éú±ä»¯»òµü´ú´ÎÊı³¬¹ı20´Î
-    while(same!=count && time<20)
+    //ç»ˆæ­¢æ¡ä»¶ä¸ºèšç±»ä¸­å¿ƒä¸å‘ç”Ÿå˜åŒ–æˆ–è¿­ä»£æ¬¡æ•°è¶…è¿‡20æ¬¡
+    while(same!=c && time<20)
     {
-        //Êä³öÃ¿´Îµü´úºóµÄÖĞĞÄ
-        cout << "µÚ" << time + 1 << "´Îµü´úµÄÖĞĞÄ: ";
-        for (int i = 0; i < count; i++) {
-            cout << point[i] << " ";
+        //è¾“å‡ºæ¯æ¬¡è¿­ä»£åçš„ä¸­å¿ƒ
+        cout << "ç¬¬" << time + 1 << "æ¬¡è¿­ä»£çš„ä¸­å¿ƒ: " << endl;
+        for (int i = 0; i < c; i++) {
+            cout << "ä¸­å¿ƒ" << (i + 1) << ":(";
+            for (int j = 0; j < n; j++) {
+                if (j == n - 1) {
+                    cout << point[i][j];
+                }
+                else
+                {
+                    cout << point[i][j] << ",";
+                }
+            }
+            cout << ")" << endl;
         }
         cout << " \n";
 
-        //³õÊ¼»¯±¾´Îµü´ú¹ı³ÌÖĞµÄsame
+        //åˆå§‹åŒ–æœ¬æ¬¡è¿­ä»£è¿‡ç¨‹ä¸­çš„same
         same = 0;
 
-        //¼ÆËãÃ¿¸öµãµ½kÖĞĞÄµÄ¾àÀë
-        //ÎªËûÃÇ»®·ÖÀà
-        for (int i = 0; i < m; i++) {
-            for (int j = 0; j < n; j++) {
-                //³õÊ¼»¯min
-                double min = fabs(array[i][j] - point[0]);
-                for (int k = 1; k < count; k++)
-                {
-                    //Èç¹ûÓĞ±ğµÄ¾ÛÀàÖĞĞÄµ½¸ÃµãµÄ¾àÀëĞ¡ÓÚmin
-                    //¸üĞÂmin
-                    //²¢½«¸Ãµã»®·ÖÎªĞÂµÄÀà
-                    if (fabs(array[i][j] - point[k]) < min) {
-                        min = fabs(array[i][j] - point[k]);
-                        category[i][j] = k;
-                    }
-                }
+        //è®¡ç®—æ¯ä¸ªç‚¹åˆ°kä¸­å¿ƒçš„è·ç¦»
+        //ä¸ºä»–ä»¬åˆ’åˆ†ç±»
+        for (int i = 0; i < m; i++) {       
+            //åˆå§‹åŒ–min
+            double min = distance(data[i], point[0]);
+            for (int k = 1; k < c; k++)
+            {
+                //å¦‚æœæœ‰åˆ«çš„èšç±»ä¸­å¿ƒåˆ°è¯¥ç‚¹çš„è·ç¦»å°äºmin
+                //æ›´æ–°min
+                //å¹¶å°†è¯¥ç‚¹åˆ’åˆ†ä¸ºæ–°çš„ç±»
+                if (distance(data[i], point[k]) < min) {
+                    min = distance(data[i], point[k]);
+                    category[i] = k;
+                }               
             }
         }
 
-        //µ÷ÕûkÖĞĞÄ
-        for (int k = 0; k < count; k++) {
-            //¼ÇÂ¼ÉÏÒ»´ÎµÄkÖĞĞÄ
-            double res_k = point[k];
-            //´æ´¢ÊôÓÚ¸ÃÀàµÄµãµÄ×ÜºÍ
-            double sum = 0;
-            //´æ´¢ÊôÓÚ¸ÃÀàµÄµãµÄ¸öÊı
+        //è°ƒæ•´kä¸­å¿ƒ
+        for (int k = 0; k < c; k++) {
+            //è®°å½•ä¸Šä¸€æ¬¡çš„kä¸­å¿ƒ
+            double* res_k = new double[n];
+            for (int i = 0; i < n; i++) {
+                res_k[i] = point[k][i];
+            }
+            //å­˜å‚¨å±äºè¯¥ç±»çš„ç‚¹çš„æ€»å’Œ
+            double *sum=new double [n];
+            for (int i = 0; i < n; i++) {
+                sum[i] = 0;
+            }
+            //å­˜å‚¨å±äºè¯¥ç±»çš„ç‚¹çš„ä¸ªæ•°
             int num = 0;
             for (int i = 0; i < m; i++) {
-                for (int j = 0; j < n; j++) {
-                    if (category[i][j] == k) {
-                        //Èç¹ûµãÊôÓÚ¸ÃÀà£¬Ôò¼ÇÂ¼
-                        sum += array[i][j];
-                        num++;
+                if (category[i] == k) {
+                    for (int j = 0; j < n; j++) {
+                        //å¦‚æœç‚¹å±äºè¯¥ç±»ï¼Œåˆ™è®°å½•
+                        {
+                            sum[j] += data[i][j];
+                        }
                     }
+                    num++;
+                }                                            
+            }
+            //kä¸­å¿ƒè¿­ä»£ä¸ºè¯¥ç±»çš„å‡å€¼ä¸­å¿ƒ
+            for (int i = 0; i < n; i++) {
+                point[k][i] = sum[i] / num;
+            }
+            //å¦‚æœè¿­ä»£åçš„ä¸­å¿ƒä¸è¿­ä»£å‰ç›¸ç­‰
+            //åˆ™same++
+            int flag = 0;
+            for (int i = 0; i < n; i++) {
+                if (res_k[i] != point[k][i]) {
+                    flag = 1;
                 }
             }
-            //kÖĞĞÄµü´úÎª¸ÃÀàµÄ¾ùÖµÖĞĞÄ
-            point[k] = sum / num;
-            //Èç¹ûµü´úºóµÄÖĞĞÄÓëµü´úÇ°ÏàµÈ
-            //Ôòsame++
-            if (res_k == point[k]) {
+            if (flag==0) {
                 same++;
             }
         }
         time++;
     }
     
-    cout << "\n" << "µü´úºóµÄ·ÖÀà¾ØÕó:" << "\n";
+    cout << "\n" << "è¿­ä»£åçš„åˆ†ç±»çŸ©é˜µ:" << "\n";
     for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << category[i][j]<<" ";
-        }
+        cout << category[i] << " ";
         cout << "\n";
     }
 
