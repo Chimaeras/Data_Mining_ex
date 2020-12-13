@@ -235,22 +235,15 @@ x | y
 
 #### 结果展示：
 * (聚类：2类)
-* ![Image text]()
-* ![Image text]()
-* ![Image text]()
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/2%E5%88%86%E7%B1%BB.png)
 ---
 * (聚类：3类)
-* ![Image text]()
-* ![Image text]()
-* ![Image text]()
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/3%E5%88%86%E7%B1%BB.png)
 ---
 * (聚类：4类)
-* ![Image text]()
-* ![Image text]()
-* ![Image text]()
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/4%E5%88%86%E7%B1%BB.png)
 ---
 * (聚类：5类)
-* ![Image text]()
-* ![Image text]()
-* ![Image text]()
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/5%E5%88%86%E7%B1%BB.png)
+
 
