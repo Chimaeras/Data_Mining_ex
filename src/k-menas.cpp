@@ -9,10 +9,10 @@
 using namespace std;
 
 //m为行，n为列
-static int m = 100;
-static int n = 10;
+static int m = 20;
+static int n = 2;
 //c为中心的数量
-static int c = 4;
+static int c = 3;
 
 
 //计算两点之间的距离
@@ -26,45 +26,45 @@ double distance(double a[] ,double b[]) {
 
 int main() {
 
-    double** data = new double* [m];
-    for (int i = 0; i < m; i++) {
-        data[i] = new double[n];
-    }
+    //double** data = new double* [m];
+    //for (int i = 0; i < m; i++) {
+    //    data[i] = new double[n];
+    //}
 
-    //数据文件地址
-    string path = "D:\\Java_project\\Data_Mining_ex_1\\z-score.txt";
-    //打开文件
-    ifstream in(path);
-    //读txt数据
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            in >> data[i][j];
-        }
-    }
-    //关闭文件
-    in.close();
+    ////数据文件地址
+    //string path = "D:\\Java_project\\Data_Mining_ex_1\\z-score.txt";
+    ////打开文件
+    //ifstream in(path);
+    ////读txt数据
+    //for (int i = 0; i < m; i++) {
+    //    for (int j = 0; j < n; j++) {
+    //        in >> data[i][j];
+    //    }
+    //}
+    ////关闭文件
+    //in.close();
 
-    double test[20][3] =
-    {   {3.45,7.08,4.26} ,
-        {1.76,7.24,5.14} ,
-        {4.29,9.55,1.25} ,
-        {3.35,6.65,1.69} ,
-        {3.17,6.41,4.36} ,
-        {3.68,5.99,9.35} ,
-        {2.11,4.08,3.84} ,
-        {2.58,7.10,4.32} ,
-        {3.45,7.88,7.25} ,
-        {6.17,5.40,1.46} ,
-        {4.20,6.46,1.78} ,
-        {5.87,3.87,6.45} ,
-        {5.47,2.21,8.61} ,
-        {5.97,3.62,1.47} ,
-        {6.24,3.06,5.23} ,
-        {6.89,2.41,8.47} ,
-        {5.38,2.32,9.34} ,
-        {5.13,2.73,6.41} ,
-        {7.26,4.19,2.36} ,
-        {6.32,3.62,4.25} ,
+    double data[20][3] =
+    {   {3.45,7.08} ,
+        {1.76,7.24} ,
+        {4.29,9.55} ,
+        {3.35,6.65} ,
+        {3.17,6.41} ,
+        {3.68,5.99} ,
+        {2.11,4.08} ,
+        {2.58,7.10} ,
+        {3.45,7.88} ,
+        {6.17,5.40} ,
+        {4.20,6.46} ,
+        {5.87,3.87} ,
+        {5.47,2.21} ,
+        {5.97,3.62} ,
+        {6.24,3.06} ,
+        {6.89,2.41} ,
+        {5.38,2.32} ,
+        {5.13,2.73} ,
+        {7.26,4.19} ,
+        {6.32,3.62} ,
     };
 
     //定义类别二维数组，存储每个数据的类别
@@ -179,11 +179,54 @@ int main() {
         time++;
     }
     
-    cout << "\n" << "迭代后的分类矩阵:" << "\n";
+    //输出分类矩阵
+    cout << "\n" << "迭代后的分类矩阵（总共20行，转换成10*2）:" << "\n";
     for (int i = 0; i < m; i++) {
         cout << category[i] << " ";
-        cout << "\n";
+        if (i % 10 == 9) {
+            cout << "\n";
+        } 
     }
+
+    ofstream write;
+    //以覆盖写入的方式打开.txt文件，没有的话就创建该文件。
+    write.open("point.txt", std::ios::out);
+    if (!write.is_open())
+        return 0;
+    
+    
+    //将源数据点写入txt中
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            write << data[i][j] << " ";
+        }
+        write << endl;
+    }
+
+    //将最后更新的中心点写入文件中
+    for (int i = 0; i < c; i++) {
+        for (int j = 0; j < n; j++) {
+            write << point[i][j] << " ";
+        }
+        write << endl;
+    }
+    write << endl;
+
+    //关闭文件
+    write.close();
+
+    //将分类矩阵写入文件
+    write.open("category.txt", std::ios::out);
+    if (!write.is_open())
+        return 0;
+
+    //将分类矩阵写入文件中
+    for (int i = 0; i < m; i++) {
+        write << category[i] << " " << endl;
+    }
+
+    //关闭文件
+    write.close();
 
     return 0;
 }
