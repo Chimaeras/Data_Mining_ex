@@ -248,5 +248,14 @@ x | y
 ---
 * (聚类：5类)
 * ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/5%E7%B1%BB.png)
+---
 
+### 如何判断k值是否合适
+##### 常用方法为elbow method，x轴为聚类的数量，y轴为WSS（within cluster sum of squares）也就是各个点到cluster中心的距离的平方的和。
+##### 当k=1时，表示全部点聚合为一类，然后wss就表示wss就是每个点到中心点的距离的总和
+##### 当k=2、3、...时，wss就表示不同类别的点分别到其类中心的距离的总和
+
+##### 于是可以绘制出类别数与wss的折现图，通过观察其转折部分，可以判断k值是否合适。
+
+#### 通过给出的分类截图可以看出，随着类数的增加，wss距离不断缩小，于是除了题目中要求的2-5类，我还添加了6-13类时的wss距离，以绘制类别-wss折线图。
 
