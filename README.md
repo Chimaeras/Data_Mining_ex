@@ -252,10 +252,21 @@ x | y
 
 ### 如何判断k值是否合适
 ##### 常用方法为elbow method，x轴为聚类的数量，y轴为WSS（within cluster sum of squares）也就是各个点到cluster中心的距离的平方的和。
+
 ##### 当k=1时，表示全部点聚合为一类，然后wss就表示wss就是每个点到中心点的距离的总和
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/wss%E8%A7%A3%E9%87%8A_1.jpg)
+
 ##### 当k=2、3、...时，wss就表示不同类别的点分别到其类中心的距离的总和
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/wss%E8%A7%A3%E9%87%8A_2.jpg)
 
 ##### 于是可以绘制出类别数与wss的折现图，通过观察其转折部分，可以判断k值是否合适。
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/wss%E8%82%98%E5%AD%90%E5%9B%BE.jpg)
 
 #### 通过给出的分类截图可以看出，随着类数的增加，wss距离不断缩小，于是除了题目中要求的2-5类，我还添加了6-13类时的wss距离，以绘制类别-wss折线图。
 
+#### 以下给出绘制的x、y轴数据（绘制代码十分简单，故不放上来）
+##### x = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+##### y = y = [990, 950.1, 884.895, 806.211, 760.121, 725.274, 670.831, 650.543, 645.611, 610.432, 584.23, 557.352, 549.938,
+         543.846]
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/wss%E6%8A%98%E7%BA%BF%E5%9B%BE.png)
+### 可以看见，在图中两个红框中的k值是比较适合的。
