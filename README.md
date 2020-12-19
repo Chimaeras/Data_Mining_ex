@@ -234,20 +234,17 @@ x | y
 * ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%96%87%E4%BB%B6%E5%9C%B0%E5%9D%80.png)
 
 #### 结果展示：
-* (聚类：1类)
-* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/1%E7%B1%BB.png)
----
 * (聚类：2类)
-* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/2%E7%B1%BB.png)
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/100_%E4%BA%8C%E7%B1%BB.png)
 ---
 * (聚类：3类)
-* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/3%E7%B1%BB.png)
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/100_%E4%B8%89%E7%B1%BB.png)
 ---
 * (聚类：4类)
-* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/4%E7%B1%BB.png)
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/100_%E5%9B%9B%E7%B1%BB.png)
 ---
 * (聚类：5类)
-* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/5%E7%B1%BB.png)
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/100_%E4%BA%94%E7%B1%BB.png)
 ---
 
 ### 如何判断k值是否合适
