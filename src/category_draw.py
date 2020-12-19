@@ -119,7 +119,7 @@ if __name__ == '__main__':
         if dis < d:
             d = dis
             t = i
-    # 绘制测试点
+    # 绘制测试点数据
     plt.scatter(test_point[0], test_point[1], c=color[t], marker='x', label='(2,6)')
 
     plt.legend()
