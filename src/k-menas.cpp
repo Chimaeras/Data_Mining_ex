@@ -9,10 +9,10 @@
 using namespace std;
 
 //m为行，n为列
-static int m = 100;
-static int n = 10;
+static int m = 20;
+static int n = 2;
 //c为中心的数量
-static int c = 14;
+static int c =5;
 
 
 //计算两点之间的距离
@@ -27,25 +27,25 @@ double distance(double a[] ,double b[]) {
 
 int main() {
 
-    double** data = new double* [m];
-    for (int i = 0; i < m; i++) {
-        data[i] = new double[n];
-    }
+    //double** data = new double* [m];
+    //for (int i = 0; i < m; i++) {
+    //    data[i] = new double[n];
+    //}
 
-    //数据文件地址
-    string path = "d:\\java_project\\data_mining_ex_1\\z-score.txt";
-    //打开文件
-    ifstream in(path);
-    //读txt数据
-    for (int i = 0; i < m; i++) {
-        for (int j = 0; j < n; j++) {
-            in >> data[i][j];
-        }
-    }
-    //关闭文件
-    in.close();
+    ////数据文件地址
+    //string path = "d:\\java_project\\data_mining_ex_1\\z-score.txt";
+    ////打开文件
+    //ifstream in(path);
+    ////读txt数据
+    //for (int i = 0; i < m; i++) {
+    //    for (int j = 0; j < n; j++) {
+    //        in >> data[i][j];
+    //    }
+    //}
+    ////关闭文件
+    //in.close();
 
-    /*double data[20][3] =
+    double data[20][3] =
     {   {3.45,7.08} ,
         {1.76,7.24} ,
         {4.29,9.55} ,
@@ -66,7 +66,7 @@ int main() {
         {5.13,2.73} ,
         {7.26,4.19} ,
         {6.32,3.62} ,
-    };*/
+    };
 
 
     //定义类别二维数组，存储每个数据的类别
@@ -89,7 +89,7 @@ int main() {
 
     //随机为初始数组分配类别
     for (int i = 0; i < m; i++) {
-        category[i] = rand() % c;
+        category[i] = 0;
     }
     
 
@@ -183,7 +183,7 @@ int main() {
     }
     
     //输出分类矩阵
-    cout << "\n" << "迭代后的分类矩阵（总共100行，转换成10*10）:" << "\n";
+    cout << "\n" << "迭代后的分类矩阵（总共" << m << "行，转换成" << n << "*10）:" << "\n";
     for (int i = 0; i < m; i++) {
         cout << category[i] << " ";
         if (i % 10 == 9) {
