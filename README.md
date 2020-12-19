@@ -275,7 +275,12 @@ x | y
 * 在题目1时，将给定测试数据注释掉，剩下读取文件代码部分，以获取正确的数据，同时要修改m、n、c。
 * 在题目2时，将读取文件代码部分注释掉，剩下指定数据，以获取正确的数据，同时要修改m、n、c。
 
+#### 使用步骤：
+* 1、确定k值，在k-menas.cpp中修改k值后运行cpp文件
+* 2、在draw.py中修改k值，进行绘制（绘制代码详见draw.py文件）
+---
 #### 结果展示：
+##### 图例说明：不同类别的点用不同的颜色表示，其中测试数据（2，6）使用x符号表示，其颜色代表其类别
 * (聚类：2类)
 * ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/20_2%E7%B1%BB.png)
 * ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/20_2%E7%B1%BB_%E5%8F%AF%E8%A7%86%E5%8C%96.png)
@@ -292,5 +297,9 @@ x | y
 * ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/20_5%E7%B1%BB.png)
 * ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/20_5%E7%B1%BB_%E5%8F%AF%E8%A7%86%E5%8C%96.png)
 ---
-
+#### 分析聚类k值的合理性：根据k值不同情况下，聚类样本的wss值总和可以发现，在红色标出的两个拐点处发生转折，说明其k值较为合理。
+给出测绘数据wss图的数据：
+* x = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+* y = [138.98, 36.6251, 30.4537, 23.5686, 16.1588, 9.38101, 8.78766, 6.67928, 6.8736]
+* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE_wss.png)
 
