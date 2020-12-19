@@ -276,10 +276,6 @@ x | y
 * 在题目2时，将读取文件代码部分注释掉，剩下指定数据，以获取正确的数据，同时要修改m、n、c。
 
 #### 结果展示：
-* (聚类：1类)
-* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/20_1%E7%B1%BB.png)
-* ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/20_1%E7%B1%BB_%E5%8F%AF%E8%A7%86%E5%8C%96.png)
----
 * (聚类：2类)
 * ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/20_2%E7%B1%BB.png)
 * ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/20_2%E7%B1%BB_%E5%8F%AF%E8%A7%86%E5%8C%96.png)
