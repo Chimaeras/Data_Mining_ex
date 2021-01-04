@@ -311,7 +311,7 @@ x | y
 
 ---
 
-## 实验四 《逻辑二分回归》
+## 实验四 《逻辑回归二分类》
 ### 题目
 #### 学习sigmoid函数和逻辑回归算法。将实验三.2中的样例数据用聚类的结果打标签{0，1}，并用逻辑回归模型拟合。
 * 1. 学习并画出sigmoid函数
@@ -328,8 +328,8 @@ x | y
 
 ### 实验原理：
 #### （1）逻辑回归二分类假设：
-* 将测试数据点（二维）的数据映射到{0，1}，我们运用函数h_θ（x）：![Image text]()，
-其中θ是m维得回归参数：![Image text]()，g为sigmoid激活函数：![Image text]()。
+* 将测试数据点（二维）的数据映射到{0，1}，我们运用函数h_θ（x）：![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/h_%CE%B8.png)，
+其中θ是m维得回归参数：![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%CE%B8.png)，g为sigmoid激活函数：![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/sigmoid%E6%BF%80%E6%B4%BB%E5%87%BD%E6%95%B0.png)。
 #### （2）θ参数估计：
 * 训练：通过已知分类（或标签）的数据，求得一个模型（或分离器），然后使用这个模型对未知标签的数据打上标签（或者对其进行分类）。
 * 参数估计：使用样本（即已知分类的数据），进行一系列的估算，得到θ。
@@ -344,7 +344,7 @@ x | y
 
 ### 实验推导：
 #### 以下完成对逻辑回归公式的推导。
-![Image text]()
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E5%85%AC%E5%BC%8F%E6%8E%A8%E5%AF%BC.jpg)
 
 ---
 
