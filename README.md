@@ -349,7 +349,21 @@ x | y
 ---
 
 ### 实验结果：
-![Image text]()
+#### 实验结果图：
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/sigmoid%E7%BB%93%E6%9E%9C%E5%9B%BE.png)
+#### 标准sigmoid曲线图：
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%A0%87%E5%87%86sigmoid.png)
+#### 预测结果图：
+##### 学习步长为0.01
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%B5%8B%E8%AF%95%E7%82%B9%E9%A2%84%E6%B5%8B%E7%BB%93%E6%9E%9C%EF%BC%880.01%EF%BC%89.png)
+##### 学习步长为0.001
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%B5%8B%E8%AF%95%E7%82%B9%E9%A2%84%E6%B5%8B%E7%BB%93%E6%9E%9C%EF%BC%880.001%EF%BC%89.png)
+##### 学习步长为0.0001
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%B5%8B%E8%AF%95%E7%82%B9%E9%A2%84%E6%B5%8B%E7%BB%93%E6%9E%9C%EF%BC%880.0001%EF%BC%89.png)
+#### 学习步长总结：
+* 随着学习步长的减小，学习次数增大。
+* 学习步长不能大于0.01数量级，因为步长太大可能会导致其直接跨越最优解（峰值）。
+* 学习步长对学习次数影响较大，对学习结果影响可以忽略不记。
 
 ---
 
