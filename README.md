@@ -356,6 +356,7 @@ x | y
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E7%82%B915-19.png)
 #### 实验结果图：
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/sigmoid%E7%BB%93%E6%9E%9C%E5%9B%BE.png)
+##### 实验结果图中的x轴数值是经过偏移处理后的数值，详情见代码
 #### 标准sigmoid曲线图：
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E6%A0%87%E5%87%86sigmoid.png)
 #### 预测结果图：
