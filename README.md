@@ -349,6 +349,11 @@ x | y
 ---
 
 ### 实验结果：
+#### 训练集点数据：
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E7%82%B90-4.png)
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E7%82%B95-9.png)
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E7%82%B910-14.png)
+![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/%E7%82%B915-19.png)
 #### 实验结果图：
 ![Image text](https://github.com/Chimaeras/Data_Mining_ex/blob/master/img/sigmoid%E7%BB%93%E6%9E%9C%E5%9B%BE.png)
 #### 标准sigmoid曲线图：
